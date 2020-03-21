@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+        <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.example.springbootdemo.dao.mapper.UserInfoMapper">
+<resultMap id="UserInfoMap" type="com.example.springbootdemo.dao.entity.UserInfo">
+    <id column="id" property="id"  />
+    <result column="userName" property="userName" />
+    <result column="password" property="password"  />
+    <result column="userLevel" property="userLevel"  />
+    <result column="userCode" property="userCode"  />
+</resultMap>
+
+<sql id="User_Column_List">
+    id,userName,password,userLevel,userCode
+</sql>
+
+<select id="getAll"  resultType="UserInfo">
+    SELECT
+    id,user_name,password,user_level,user_code
+    from user_info;
+</select>
+
+<select id="getUserById" parameterType="java.lang.Long" resultType="UserInfo">
+    select
+    id,user_name,password,user_level,user_code
+    from user_info
+    where id=#{id}
+</select>
+
+<insert id="insertUser" parameterType="com.example.springbootdemo.dao.entity.UserInfo">
+    Insert into user_info
+    (id,user_name,password,user_level,user_code)
+    values
+    (#{id},#{userName},#{password},#{userLevel},#{userCode})
+</insert>
+
+<update id="updateUser" parameterType="com.example.springbootdemo.dao.entity.UserInfo">
+    update user_info
+    set
+    <if test="userName != null">user_name=#{userName},</if>
+    <if test="password != null">password=#{password},</if>
+    <if test="userLevel != null">user_level=#{userLevel},</if>
+    <if test="userCode != null">user_code=#{userCode}</if>
+    where id=#{id}
+</update>
+
+<delete id="deleteUserById" parameterType="java.lang.Long" >
+    Delete from
+    user_info
+    where id=#{id}
+</delete>
+</mapper>

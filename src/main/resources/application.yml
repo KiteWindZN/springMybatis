@@ -1,0 +1,29 @@
+server:
+  port: 8080
+  servlet:
+    session:
+      timeout: 1000
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/epidemic?characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai
+    username: root
+    password: cetc*root*123
+    type: com.zaxxer.hikari.HikariDataSource
+
+    hikari:
+        minimum-idle: 5
+        connection-timeout: 100000
+        idle-timeout: 300000
+        maximum-pool-size: 100
+    jpa:
+        show-sql: false
+    servlet:
+        multipart:
+          max-file-size: -1
+          max-request-size: -1
+
+mybatis:
+  typeAliasesPackage: com.example.springbootdemo.dao.entity
+  configLocation: classpath:/mybatis/mybatis-config.xml
+  mapperLocations: classpath:/mybatis/mapper/*.xml
