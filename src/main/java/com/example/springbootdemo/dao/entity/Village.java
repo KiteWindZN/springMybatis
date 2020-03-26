@@ -15,6 +15,7 @@ public class Village {
     private String districtCode;
     private String streetCode;
     private String communityCode;
+    private String communityName;
     private String villageName;
     private String status;
 }

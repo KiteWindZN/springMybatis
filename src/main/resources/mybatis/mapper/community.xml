@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.springbootdemo.dao.mapper.CommunityMapper">
+    <resultMap id="communityVillageMap" type="Community">
+        <id column="id" property="id" />
+        <result column="district_code" property="districtCode" />
+        <result column="street_code" property="streetCode" />
+        <result column="community_name" property="communityName" />
+        <result column="ext_code" property="extCode" />
+        <result column="status" property="status" />
+        <collection property="villageList" ofType="Village">
+            <id column="set_id" property="id" />
+            <result column="city_code" property="cityCode" />
+            <result column="street_code" property="streetCode" />
+            <result column="community_code" property="communityCode" />
+            <result column="community_name" property="communityName" />
+            <result column="village_name" property="villageName" />
+            <result column="status" property="status" />
+        </collection>
+    </resultMap>
+    <select id="selCommunityVillage" resultMap="communityVillageMap">
+        select c.*,v.id as set_id ,v.city_code,v.street_code,v.community_code,v.community_name,v.village_name,v.status from community as c left outer join village as v on c.id=v.community_code
+    </select>
+    <select id="selCommunityVillageById" resultMap="communityVillageMap">
+        select c.*,v.id as set_id ,v.city_code,v.street_code,v.community_code,v.community_name,v.village_name,v.status from community as c,village as v where c.id=v.community_code and c.id=#{id}
+    </select>
+    <select id="getAllCommunity" resultType="Community">
+        select * from community
+    </select>
+</mapper>
